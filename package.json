@@ -1,15 +1,15 @@
 {
-  "name": "haibu-carapace",
+  "name": "cozy-controller-carapace",
   "main": "lib/carapace.js",
   "version": "0.7.1",
-  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "author": "Cozy Cloud",
   "repository": {
     "type": "git",
-    "url": "http://github.com/nodejitsu/haibu-carapace.git"
+    "url": "http://github.com/mycozycloud/cozy-controller-carapace.git"
   },
   "maintainers": [
-    "bmeck <bradley@nodejitsu.com>",
-    "indexzero <charlie@nodejitsu.com>"
+    "poupotte <zoe@cozycloud.cc>",
+    "frankrousseau <frank@cozycloud.cc>"
   ],
   "dependencies": {
     "async": "0.1.x",
