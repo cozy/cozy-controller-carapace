@@ -1,7 +1,7 @@
 {
   "name": "cozy-controller-carapace",
   "main": "lib/carapace.js",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "author": "Cozy Cloud",
   "repository": {
     "type": "git",
