@@ -22,7 +22,7 @@ var jail = path.join(__dirname, '..', '..', 'examples', 'app'),
 options = {
   port: 5060,
   script: path.join(jail, 'server.js'),
-  argv: ['--plugin', custom, '--plugin', 'heartbeat'],
+  argv: ['--plugin', custom],
   cwd: process.cwd(),
   keepalive: true
 };
