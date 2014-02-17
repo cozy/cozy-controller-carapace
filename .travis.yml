@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+    - "0.8"
+env:
+    global:
+        - NODE_ENV=test
+
+before_install:
+    # make sudoer use same PATH than default user
+    - sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
+    - env | grep PATH
+    - sudo env | grep PATH
+    - sudo mkdir -p /usr/local/cozy/apps
+
+script: "sudo npm test"
