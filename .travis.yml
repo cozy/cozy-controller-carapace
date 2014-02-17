@@ -12,4 +12,4 @@ before_install:
     - sudo env | grep PATH
     - sudo mkdir -p /usr/local/cozy/apps
 
-script: "sudo npm test"
+script: "npm test"
