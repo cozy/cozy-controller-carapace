@@ -1,20 +1,11 @@
 ## [Cozy](http://cozy.io) Controller Carapace
 
-Carapace is an process wrapper for Node.js applications that is part of the [Haibu][1] Network.
-Carapace also provides a plugin system to simplify deployment and development of applications.
+Carapace is an process wrapper for Node.js applications that are spawned with
+the [Cozy Controller](https://github.com/mycozycloud/cozy-controller-carapace).
 
-## What can I do with Carapace?
-
-By utilizing Carapace you can help automate deployments of applications into a custom environment.
-Combining Carapace with the [Forever][3] Daemon can allow you run the application in the environment indefinitely.
-
-## Default Plugins
-
-List of known plugins, and options (if any) used by them
+## Features
 
 * chdir - directory to change into 
-* heartbeat - time in micro-seconds between 'carapace::heartbeat' events
-* coffee - spawn `.coffee` files
 * setuid - set the uid of the spawned process
 * net - automatically listen on a new port if `EADDRINUSE` is thrown
 
