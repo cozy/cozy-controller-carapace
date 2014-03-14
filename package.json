@@ -1,16 +1,32 @@
 {
   "name": "cozy-controller-carapace",
+  "description": "Wrapper to spawn properly Cozy Platform applications.",
   "main": "lib/carapace.js",
   "version": "0.7.4",
-  "author": "Cozy Cloud",
+  "author": "Cozy Cloud <contact@cozycloud.cc> (http://cozycloud.cc)",
+  "licenses": [
+    {
+      "type": "AGPL v3",
+      "url": "http://www.gnu.org/licenses/agpl-3.0.html"
+    }
+  ],  
+  "keywords": [
+    "cloud computing",
+    "personal",
+    "personal cloud",
+    "pds",
+    "paas",
+    "home server",
+    "automated deployment",
+    "platform-as-a-service",
+    "paas",
+    "cloud",
+    "personal"
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/mycozycloud/cozy-controller-carapace.git"
   },
-  "maintainers": [
-    "poupotte <zoe@cozycloud.cc>",
-    "frankrousseau <frank@cozycloud.cc>"
-  ],
   "dependencies": {
     "async": "0.1.x",
     "eventemitter2": "0.4.x",
