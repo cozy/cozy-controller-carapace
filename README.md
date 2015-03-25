@@ -7,6 +7,8 @@ the [Cozy Controller](https://github.com/mycozycloud/cozy-controller-carapace).
 
 * chdir - directory to change into 
 * setuid - set the uid of the spawned process
+* setgid - set the gid of the spawned process
+* setgroups - set the groups of the spawned process
 * net - automatically listen on a new port if `EADDRINUSE` is thrown
 
 ## Installation
