@@ -2,7 +2,7 @@
   "name": "cozy-controller-carapace",
   "description": "Wrapper to spawn properly Cozy Platform applications.",
   "main": "lib/carapace.js",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "author": "Cozy Cloud <contact@cozycloud.cc> (http://cozycloud.cc)",
   "licenses": [
     {
