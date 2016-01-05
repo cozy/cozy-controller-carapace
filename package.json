@@ -3,13 +3,8 @@
   "description": "Wrapper to spawn properly Cozy Platform applications.",
   "main": "lib/carapace.js",
   "version": "0.8.0",
-  "author": "Cozy Cloud <contact@cozycloud.cc> (http://cozycloud.cc)",
-  "licenses": [
-    {
-      "type": "AGPL v3",
-      "url": "http://www.gnu.org/licenses/agpl-3.0.html"
-    }
-  ],
+  "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
+  "license": "AGPL-3.0",
   "keywords": [
     "cloud computing",
     "personal",
@@ -25,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/mycozycloud/cozy-controller-carapace.git"
+    "url": "http://github.com/cozy/cozy-controller-carapace.git"
   },
   "dependencies": {
     "async": "0.1.x",
