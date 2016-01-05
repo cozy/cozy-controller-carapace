@@ -9,56 +9,30 @@
 var assert = require('assert'),
     path = require('path'),
     fork = require('child_process').fork,
-    vows = require('vows'),
-    helper = require('../helper/macros.js'),
+    mocha = require('mocha'),
     carapace = require('../../lib/carapace');
 
 var script = path.join(__dirname, '..', 'fixtures', 'eacces.js'),
     argv = ['--plugin', 'net', '--setuid', 'nobody', script];
 
-vows.describe('carapace/net/dolisten').addBatch({
-  "When using haibu-carapace": {
-    "spawning the eacces.js script the child carapace": {
-      topic: function () {
-        var callback = this.callback;
-        var that = this,
-            result,
-            child;
+describe('carapace/net/dolisten', function() {
+  it('spawns the eacces.js script the child carapace', function(done) {
+    var child = fork(carapace.bin, argv, { silent: false });
 
-        result = {
-          events: [],
-          exitCode: -1
-        };
-
-        child = fork(carapace.bin, argv, { silent: true });
-
-        child.on('message', function onPort (info) {
-          if (info.event == 'port') {
-            result.events.push({
-               event: info.event,
-               info: info.data
-             });
-            child.kill();
-            callback(null, result);
-          }
-        });
-      },
-      "should exit": {
-        topic: function (info, child) {
-          this.callback(null, info, child);
-        },
-        "with the correct exit code": function (_, info, child) {
-          assert.equal(info.exitCode, -1);
-        },
-        "and emit the `port` event with the correct port": function (_, info, child) {
-          assert.equal(info.events.length, 1);
-          info.events.forEach(function (event, index) {
-            assert.equal(event.info.addr, '127.0.0.1');
-            assert.equal(event.info.desired, 80);
-            assert.equal(event.info.port, 1024);
-          });
-        }
+    child.on('message', function(info) {
+      if (info.event == 'port') {
+        assert.equal(info.data.addr, '127.0.0.1');
+        assert.equal(info.data.desired, 80);
+        assert.equal(info.data.port, 1024);
+        child.kill();
       }
-    }
-  }
-}).export(module);
+    });
+
+    child.on('exit', function(code) {
+      // 143 = 128 + 15, where 15 is the SIGTERM
+      // See https://nodejs.org/api/process.html#process_signal_events
+      assert.equal(code, 143);
+      done();
+    });
+  });
+});

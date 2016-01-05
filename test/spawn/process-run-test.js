@@ -5,38 +5,33 @@
  * MIT LICENCE
  *
  */
- 
+
 var assert = require('assert'),
     path = require('path'),
-    exec = require('child_process').exec,
+    fork = require('child_process').fork,
     http = require('http'),
     request = require('request'),
-    vows = require('vows'),
-    helper = require('../helper/macros.js'),
+    mocha = require('mocha'),
     carapace = require('../../lib/carapace');
 
 var jail = path.join(__dirname, '..', '..', 'examples', 'app'),
-    script =  path.join(jail, 'server.js'),
-    argv = [],
-    PORT = 5060;
-    
-vows.describe('carapace/run/process').addBatch({
-  "When using haibu-carapace": {
-    "and spawning `/.server.js` in a separate process": helper.assertSpawn(PORT, script, argv, {
-      "should correctly start the HTTP server": {
-        topic: function (child) {
-          var that = this;
-          request({ uri: 'http://localhost:1337' }, function () {
+    script =  path.join(jail, 'server.js');
+
+describe('carapace/run/process', function() {
+  it('spawns ./server.js in a separate process', function(done) {
+      var child = fork(carapace.bin, [script]);
+
+      child.on('message', function(info) {
+        if (info.event === 'running') {
+          assert.equal(info.data.script, script);
+          request({ uri: 'http://localhost:1337' }, function(err, res, body) {
             child.kill();
-            that.callback.apply(null, arguments);
-          });      
-        },
-        "that responds with a cwd inside the app root": function (err, res, body) {
-          assert.isNull(err);
-          assert.equal(res.statusCode, 200);
-          assert.equal(body, process.cwd());
+            assert(!err);
+            assert.equal(res.statusCode, 200);
+            assert.equal(body, process.cwd());
+            done();
+          });
         }
-      }
-    })
-  }
-}).export(module);
+      });
+  });
+});

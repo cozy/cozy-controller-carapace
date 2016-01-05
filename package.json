@@ -29,9 +29,8 @@
     "semver": "1.0.x"
   },
   "devDependencies": {
-    "eyes": "0.1.x",
-    "request": "2.9.x",
-    "vows": "0.6.x"
+    "mocha": "2.3.4",
+    "request": "2.67.0"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -40,6 +39,6 @@
     "carapace": "./bin/carapace"
   },
   "scripts": {
-    "test": "vows test/*/*-test.js --isolate --spec"
+    "test": "mocha --reporter spec test/*/*-test.js"
   }
 }

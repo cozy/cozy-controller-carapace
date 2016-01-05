@@ -5,16 +5,17 @@
  * MIT LICENCE
  *
  */
- 
+
 var assert = require('assert'),
-    vows = require('vows'),
-    helper = require('../helper/macros.js'),
+    mocha = require('mocha'),
     carapace = require('../../lib/carapace');
 
-vows.describe('carapace/simple/use').addBatch({
-  "When using haibu-carapace": {
-    "use chdir plugins" : helper.assertUse(['chdir'], {
-      "and use heartbeat" : helper.assertUse(['heartbeat'])
-    })
-  }
-}).export(module);
+describe('carapace/simple/use-plugins', function() {
+  it('uses chdir plugin', function(done) {
+    carapace.use('chdir', done);
+  });
+
+  it('and uses heartbeat plugin', function(done) {
+    carapace.use('heartbeat', done);
+  });
+});
