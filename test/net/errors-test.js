@@ -28,10 +28,10 @@ describe('carapace/net/dolisten', function() {
       }
     });
 
-    child.on('exit', function(code) {
+    child.on('exit', function(code, sig) {
       // 143 = 128 + 15, where 15 is the SIGTERM
       // See https://nodejs.org/api/process.html#process_signal_events
-      assert.equal(code, 143);
+      assert(code === 143 || sig === 'SIGTERM');
       done();
     });
   });

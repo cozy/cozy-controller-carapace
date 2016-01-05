@@ -23,10 +23,9 @@
     "url": "http://github.com/cozy/cozy-controller-carapace.git"
   },
   "dependencies": {
-    "async": "0.1.x",
-    "eventemitter2": "0.4.x",
-    "optimist": "0.3.x",
-    "semver": "1.0.x"
+    "async": "0.9.0",
+    "eventemitter2": "0.4.14",
+    "optimist": "0.3.7"
   },
   "devDependencies": {
     "mocha": "2.3.4",

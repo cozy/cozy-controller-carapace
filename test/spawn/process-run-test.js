@@ -15,16 +15,17 @@ var assert = require('assert'),
     carapace = require('../../lib/carapace');
 
 var jail = path.join(__dirname, '..', '..', 'examples', 'app'),
-    script =  path.join(jail, 'server.js');
+    script =  path.join(jail, 'server.js'),
+    argv = ['--port', '1338'];
 
 describe('carapace/run/process', function() {
   it('spawns ./server.js in a separate process', function(done) {
-      var child = fork(carapace.bin, [script]);
+      var child = fork(carapace.bin, [script].concat(argv));
 
       child.on('message', function(info) {
         if (info.event === 'running') {
           assert.equal(info.data.script, script);
-          request({ uri: 'http://localhost:1337' }, function(err, res, body) {
+          request({ uri: 'http://localhost:1338' }, function(err, res, body) {
             child.kill();
             assert(!err);
             assert.equal(res.statusCode, 200);
