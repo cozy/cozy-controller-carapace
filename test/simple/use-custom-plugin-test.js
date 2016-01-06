@@ -4,30 +4,27 @@
  * (C) 2011 Nodejitsu Inc.
  *
  */
- 
+
 var assert = require('assert'),
+    mocha = require('mocha'),
     path = require('path'),
-    vows = require('vows'),
-    helper = require('../helper/macros.js'),
     carapace = require('../../lib/carapace');
 
-vows.describe('carapace/simple/use-custom-plugin').addBatch({
-  "When using haibu-carapace": {
-    "a custom plugin" : {
-      "with an absolute path": helper.assertUse([path.join(__dirname, '..', 'fixtures', 'custom.js')], {
-        "after the plugin is loaded": {
-          topic: function () {
-            carapace.custom();
-            carapace.once('custom', this.callback.bind(carapace, null));
-          },
-          "should emit the `custom` event": function (_, info) {
-            assert.isTrue(info.custom);
-          }
-        }
-      }),
-      "with a relative path": function () {
-        assert.throws(function () { carapace.load('../fixtures/relative.js') });
-      }
-    }
-  }
-}).export(module);
+describe('carapace/simple/use-custom-plugin', function() {
+  it('loads a custom plugin with an absolute path', function(done) {
+    var plugin = path.join(__dirname, '..', 'fixtures', 'custom.js');
+    carapace.use(plugin, function() {
+      carapace.custom();
+      carapace.once('custom', function(info) {
+        assert(info.custom);
+        done();
+      });
+    });
+  });
+
+  it('throws with a relative path', function () {
+    assert.throws(function () {
+      carapace.load('../fixtures/relative.js');
+    });
+  });
+});

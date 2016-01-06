@@ -9,61 +9,36 @@
 var assert = require('assert'),
     path = require('path'),
     fork = require('child_process').fork,
-    vows = require('vows'),
-    helper = require('../helper/macros.js'),
+    mocha = require('mocha'),
     carapace = require('../../lib/carapace');
 
 var script = path.join(__dirname, '..', 'fixtures', 'multi-server.js'),
     testPort = 8000,
     argv = ['--plugin', 'net', script];
 
-vows.describe('carapace/net/dolisten').addBatch({
-  "When using haibu-carapace": {
-    "spawning the server-dolisten.js script the child carapace": {
-      topic: function () {
-        var that = this,
-            result,
-            child;
-            
-        result = {
-          events: [],
-          exitCode: -1
-        };
-            
-        child = fork(carapace.bin, argv, { silent: true });
-        child.on('exit', function (code) {
-          result.exitCode = code;
-          // process all events before asserting
-          process.nextTick(function () {
-            that.callback(null, result, child);
-          });
-        });
+describe('carapace/net/dolisten', function() {
+  it('spawns the server-dolisten script the child carapace', function(done) {
+    var events = [];
+    var child = fork(carapace.bin, argv, { silent: false });
 
-        child.on('message', function onPort (info) {
-          info.event == 'port' && result.events.push({
-            event: info.event,
-            info: info.data
-          });
-        });
-      },
-      "should exit": {
-        topic: function (info, child) {
-          this.callback(null, info, child);
-        },
-        "with the correct exit code": function (_, info, child) {
-          assert.equal(info.exitCode, 0);
-        },
-        "and 3x emit the `port` event with the correct port": function (_, info, child) {
-          var desired = testPort,
-              port = desired;
-              
-          assert.equal(info.events.length, 3);
-          info.events.forEach(function (event, index) {
-            assert.equal(event.info.desired, desired);
-            assert.equal(event.info.port, port++);
-          });
-        }
+    child.on('message', function(info) {
+      if (info.event == 'port') {
+        events.push(info.data);
       }
-    }
-  }
-}).export(module);
+    });
+
+    child.on('exit', function(code) {
+      assert.equal(code, 0);
+      // process all events before asserting
+      process.nextTick(function() {
+        var desired = testPort, port = desired;
+        assert.equal(events.length, 3);
+        events.forEach(function(event) {
+          assert.equal(event.desired, desired);
+          assert.equal(event.port, port++);
+        });
+        done();
+      });
+    });
+  });
+});

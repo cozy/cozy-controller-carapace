@@ -3,13 +3,8 @@
   "description": "Wrapper to spawn properly Cozy Platform applications.",
   "main": "lib/carapace.js",
   "version": "0.8.0",
-  "author": "Cozy Cloud <contact@cozycloud.cc> (http://cozycloud.cc)",
-  "licenses": [
-    {
-      "type": "AGPL v3",
-      "url": "http://www.gnu.org/licenses/agpl-3.0.html"
-    }
-  ],
+  "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
+  "license": "AGPL-3.0",
   "keywords": [
     "cloud computing",
     "personal",
@@ -25,18 +20,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/mycozycloud/cozy-controller-carapace.git"
+    "url": "http://github.com/cozy/cozy-controller-carapace.git"
   },
   "dependencies": {
-    "async": "0.1.x",
-    "eventemitter2": "0.4.x",
-    "optimist": "0.3.x",
-    "semver": "1.0.x"
+    "async": "0.9.0",
+    "eventemitter2": "0.4.14",
+    "optimist": "0.3.7"
   },
   "devDependencies": {
-    "eyes": "0.1.x",
-    "request": "2.9.x",
-    "vows": "0.6.x"
+    "mocha": "2.3.4",
+    "request": "2.67.0"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -45,6 +38,6 @@
     "carapace": "./bin/carapace"
   },
   "scripts": {
-    "test": "vows test/*/*-test.js --isolate --spec"
+    "test": "mocha --reporter spec test/*/*-test.js"
   }
 }

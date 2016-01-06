@@ -16,7 +16,7 @@ module.exports = function pluginserver (carapace) {
         return done();
       }
       
-      var port = 1337, server;
+      var port = 31337, server;
       
       server = http.createServer(function (req, res) {
         res.end('from-pluginserver');
